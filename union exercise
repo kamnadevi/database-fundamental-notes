@@ -1,0 +1,7 @@
+--Union Exercise
+Select studentid'ID','Student Born: ' + firstname + ' ' + lastname'Event:Name' from student
+where datename(mm,birthdate)= 'October'
+Union 
+Select staffid,'Staff Hired: '+ firstname + ' ' + lastname from staff
+where datename(mm,datehired)= 'October'
+order by ID desc
