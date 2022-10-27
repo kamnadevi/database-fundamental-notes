@@ -5,3 +5,41 @@ Union
 Select staffid,'Staff Hired: '+ firstname + ' ' + lastname from staff
 where datename(mm,datehired)= 'October'
 order by ID desc
+
+
+
+--SubQueries
+--A query inside another statement(query, insert, update, delete)
+--A subquery is a full query that can be executed and tested on it's own
+--Can usually be used anywhere a value is used
+--a subquery can often be used instead of ajoin, BUT, joins are faster
+
+--The subquery executes first, and the results of that subquery are used by the outer statement
+
+--join--Select all the staff names that are a 'Dean'
+Select firstname,lastname from staff
+inner join position on position.PositionID=staff.PositionID
+where PositionDescription = 'Dean'
+
+--as a subquery
+Select firstname,lastname from staff
+where positionid = (Select PositionID from position where PositionDescription='Dean')
+
+--join-- Select the studentid and names of students that have made payments
+select distinct student.studentid,firstname,lastname from student
+inner join payment on student.StudentID=payment.StudentID
+
+--A subquery
+Select studentid,firstname,lastname from student
+where studentid =(Select studentid from payment)
+--does not work because the subquery returns more than one value
+--If the subquery returns more than one value you must us IN
+Select studentid,firstname,lastname from student
+where studentid in (Select studentid from payment)
+
+
+--studentid,names of students that have made NO payments
+--join
+select distinct student.studentid,firstname,lastname from student
+left outer join payment on student.StudentID=payment.StudentID
+where amount is NULL
