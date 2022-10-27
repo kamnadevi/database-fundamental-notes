@@ -40,6 +40,26 @@ where studentid in (Select studentid from payment)
 
 --studentid,names of students that have made NO payments
 --join
-select distinct student.studentid,firstname,lastname from student
+select student.studentid,firstname,lastname from student
 left outer join payment on student.StudentID=payment.StudentID
-where amount is NULL
+where paymentid is NULL
+--subquery
+Select studentid,firstname,lastname from student
+where studentid not in (Select studentid from payment)
+select* from student
+select* from payment  
+
+
+--How many payments has each(and every) student made? Show the studentid, name and the count
+Select student.studentid,firstname,lastname,count(*)'Count'
+from student
+left outer join payment on student.StudentID=payment.StudentID
+group by student.StudentID,firstname,lastname
+--Returns counts of 1 when there should be counts of 0
+--because the outer join returns the students that have no payments and they get counted as 1
+Select student.studentid,firstname,lastname,count(PaymentID)'Count'
+from student
+left outer join payment on student.StudentID=payment.StudentID
+group by student.StudentID,firstname,lastname
+--when using count() with outer  join you must count the PK of thechild table
+--If the parent has no child records it will be null and therefore not counted.
