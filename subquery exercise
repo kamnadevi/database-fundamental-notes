@@ -1,0 +1,39 @@
+--Views
+-- A query that is stored in the database
+-- The results of the query are given a name. This is a view
+--We can use a view like a table. We can select from view
+
+--Create a view that contains all the students names
+go
+Create view StudentNameView
+as
+Select firstname,lastname from student
+go
+--Use the view like a table
+Select firstname + ' ' + lastname'StudentName' from StudentNameView
+
+--View contain no data
+--When a view is used, the query the view is created from executes, and populate the view to use.
+--Why????
+--Only show required data
+--Simlify complex queries
+--Why would you want to type this all out everytime you want a transcript?
+Select Student.studentid,Student.firstname+ ' ' + student.lastname'Student',mark,course.courseid,
+coursename,coursecost,staff.firstname + ' ' + staff.lastname'Staff'
+from student
+inner join Registration on student.StudentID=Registration.StudentID
+inner join offering on offering.OfferingCode=Registration.OfferingCode
+inner join staff on staff.StaffID=offering.StaffID
+inner join course on course.CourseID=Offering.CourseID
+where student.studentid = 199899200
+--Create a view from above query without the where clause so it can be reused
+go
+Create View StudentTranscript
+as
+Select Student.studentid,Student.firstname+ ' ' + student.lastname'Student',mark,course.courseid,
+coursename,coursecost,staff.firstname + ' ' + staff.lastname'Staff'
+from student
+inner join Registration on student.StudentID=Registration.StudentID
+inner join offering on offering.OfferingCode=Registration.OfferingCode
+inner join staff on staff.StaffID=offering.StaffID
+inner join course on course.CourseID=Offering.CourseID
