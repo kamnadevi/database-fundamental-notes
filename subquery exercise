@@ -37,3 +37,23 @@ inner join Registration on student.StudentID=Registration.StudentID
 inner join offering on offering.OfferingCode=Registration.OfferingCode
 inner join staff on staff.StaffID=offering.StaffID
 inner join course on course.CourseID=Offering.CourseID
+Select * from StudentTranscriptwhere 
+where student = 199899200
+
+
+--Maintain a view
+--Drop a view
+Drop view StudentNameView
+--Retrieve the source code
+sp_helptext studenttranscript
+
+--Alter a view
+Alter View StudentTranscript
+as
+Select Student.studentid,Student.firstname+ ' ' + student.lastname'StudentName',mark,course.courseid,
+coursename,coursecost,staff.firstname + ' ' + staff.lastname'StaffName'
+from student
+inner join Registration on student.StudentID=Registration.StudentID
+inner join offering on offering.OfferingCode=Registration.OfferingCode
+inner join staff on staff.StaffID=offering.StaffID
+inner join course on course.CourseID=Offering.CourseID
