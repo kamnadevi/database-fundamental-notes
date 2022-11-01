@@ -1,0 +1,59 @@
+drop table tracks
+drop table album
+
+Create Table Album
+(
+AlbumID int identity (1,1) not null constraint pk_album primary key  clustered,
+Title varchar (100) not null,
+Rating char(1) not null 
+constraint ck_ratingrange check(Rating between 0 and 5)
+constraint df_0rating default 0,
+Artist varchar (100) null,
+SuggestedPrice smallmoney null
+)
+
+Create Table Tracks
+(
+TrackID tinyint not null,
+AlbumID int not null 
+constraint fk_TracksToAlbum references Album(AlbumID),
+Title varchar (50) not null,
+Length tinyint null,
+constraint pk_Tracks primary key clustered (TrackID, AlbumID)
+)
+--INSERT
+Select * from Album
+Insert into Album
+values(1,'Greatest Hits','5','ABBA',10)
+--Fails.You cannot insert a value into an identity field
+--Ignore the identity field in your inserts
+Insert into Album
+values('Greatest Hits','5','ABBA',10)
+--Works! :) :) BUT, never do it this way....:( :(
+--This way is much better
+Insert into Album(title,rating,artist,SuggestedPrice)
+values('Greatest hits 2','4','ABBA',8)
+
+insert into Album(title,rating,artist,SuggestesPrice)
+values('Greatest hits 2','4','ABBA')
+--Must have the same number of values as columns
+insert into Album(title,rating,artist)
+values('Greatest hits 2','4','ABBA',8)
+
+--nulls 
+insert into Album(title,rating,artist,SuggestesPrice)
+values('Greatest hits 2','4','ABBA',null)
+--OR
+insert into Album(title,rating,artist,SuggestesPrice)
+values('Greatest hits 2','4','ABBA')
+
+--Defaults
+insert into Album(title,rating,artist,SuggestesPrice)
+values('Greatest hits 2',default,'ABBA',8)
+--OR
+insert into Album(title,artist,SuggestesPrice)
+values('Greatest hits 2','ABBA',8)
+
+--Subqueries
+--Remember,you can use a subquery anywhere you need a value
+--Add an album with the same price as the average price of all the other albums
