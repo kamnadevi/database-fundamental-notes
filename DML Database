@@ -57,3 +57,16 @@ values('Greatest hits 2','ABBA',8)
 --Subqueries
 --Remember,you can use a subquery anywhere you need a value
 --Add an album with the same price as the average price of all the other albums
+--Why does this fail
+
+--when a subquery is used as a value it MUST return only one value
+--You can use as many sybqueries as you need
+
+--insert a new album with the folowing
+--title the same as album 1
+--rating the same as the highest rating in the table
+--any artist you want
+--suggested price the same as the lowest in the table
+insert into Album(title,rating,artist,SuggestedPrice)
+values('Grestest hits 2',(select max(rating) from Album),'ABBA',(Select min(SuggestedPrice)from Album))
+select * from Album
