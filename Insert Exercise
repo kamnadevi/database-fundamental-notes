@@ -1,0 +1,20 @@
+insert into itemtype(itemtypeid,itemtypedescription)
+values(1,'Camera')
+insert into itemtype(itemtypeid,itemtypedescription)
+values(2,'Lights')
+insert into itemtype(itemtypeid,itemtypedescription)
+values(3,'Stand')
+insert into itemtype(itemtypeid,itemtypedescription)
+values(2,'Backdrop')
+--Why is it not working??
+insert into itemtype(itemtypeid,itemtypedescription)
+values(89899985225,'Outfit')
+--It is not working...
+insert into itemtype(itemtypeid,itemtypedescription)
+values(4A,'Other')
+--wrong datatype, it should be int
+
+insert into Item(ItemDescription,PricePerDay,ItemTypeID)
+values('Canon G2',25,1)
+insert into Item(ItemDescription,PricePerDay,ItemTypeID)
+values('100W tungston',18,1)
